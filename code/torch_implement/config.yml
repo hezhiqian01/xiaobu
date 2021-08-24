@@ -1,0 +1,60 @@
+pretrain:
+  epochs: 100
+  batch_size: 32
+  lr: 1e-4
+  weight_decay: 0
+  # 学习率衰减，不衰减设置为0，值越大，衰减速度越快
+  decay_rate: 0
+  # 学习率warmup
+  warmup_steps: 10000
+  # 多少个epoch save一次模型
+  model_save_epoch: 2
+
+simtrain:
+  epochs: 50
+  batch_size: 32
+  lr: 2e-6
+  decay_rate: 0.1
+  model_save_epoch: 10
+
+nsptrain:
+  epochs: 50
+  batch_size: 64
+  lr: 2e-6
+  decay_rate: 0.1
+  model_save_epoch: 10
+
+seq_max_len: 32
+min_count: 5
+
+config_path: '../user_data/chinese_L-12_H-768_A-12/bert_config.json'
+checkpoint_path: '../user_data/chinese_L-12_H-768_A-12/bert_model.ckpt'
+dict_path: '../user_data/chinese_L-12_H-768_A-12/vocab.txt'
+
+train_data_path: '../tcdata/gaiic_track3_round1_train_20210228.tsv'
+test_data_path: '../tcdata/gaiic_track3_round1_testA_20210228.tsv'
+
+pre_train_log_dir: '../user_data/logs/pretrain_log.csv'
+sim_train_log_dir: '../user_data/logs/sim_log.csv'
+nsp_train_log_dir: '../user_data/logs/nsp_log.csv'
+output_path: "../user_data/models/"
+bert_model_path: "../user_data/models/bert"
+sim_model_path: "../user_data/models/similarity"
+nsp_model_path: "../user_data/models/nsp"
+prediction_result: "../prediction_result/result.txt"
+
+bert_config:
+  vocab_size: 8000
+  hidden_size: 768
+  num_hidden_layers: 12
+  num_attention_heads: 12
+  intermediate_size: 3072 # 768x4
+  hidden_act: "gelu"  # 激活函数
+  hidden_dropout_prob: 0.1  # dropout的概率
+  attention_probs_dropout_prob: 0.1
+  max_position_embeddings: 512
+  type_vocab_size: 2  # 用来做next sentence预测, 这里预留了256个分类, 其实我们目前用到的只有0和1
+  initializer_range: 0.02  # 用来初始化模型参数的标准差
+
+
+
